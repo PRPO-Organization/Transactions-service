@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: transactions-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  transactions:
+    build: .
+    ports:
+      - "8081:8081"
+    environment:
+      - MONGO_HOST=mongo
+      - MONGO_PORT=27017
+      - fare.base=1.0
+      - fare.per_km=0.8
+      - fare.per_min=0.2
+    depends_on:
+      - mongo
+
+volumes:
+  mongo_data:

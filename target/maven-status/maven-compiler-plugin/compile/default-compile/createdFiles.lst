@@ -1,0 +1,6 @@
+com\example\transactions\model\Transaction.class
+com\example\transactions\repository\TransactionRepository.class
+com\example\transactions\service\TransactionService.class
+com\example\transactions\dto\FareRequest.class
+com\example\transactions\Application.class
+com\example\transactions\controller\TransactionController.class
