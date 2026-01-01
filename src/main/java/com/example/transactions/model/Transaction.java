@@ -3,6 +3,8 @@ package com.example.transactions.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.example.transactions.status.TransactionStatus;
+
 import java.time.Instant;
 
 @Document(collection = "transactions")
@@ -15,16 +17,18 @@ public class Transaction {
     private double amount;
     private String currency = "EUR";
     private Instant createdAt;
-    private String status; // PENDING, COMPLETED, REFUNDED
+    private TransactionStatus status; // PENDING, COMPLETED, REFUNDED
+    private PaymentMethod paymentMethod;
 
     public Transaction() {}
 
-    public Transaction(String orderId, String passengerId, String driverId, double amount, String status) {
+    public Transaction(String orderId, String passengerId, String driverId, double amount, TransactionStatus status, PaymentMethod paymentMethod) {
         this.orderId = orderId;
         this.passengerId = passengerId;
         this.driverId = driverId;
         this.amount = amount;
         this.status = status;
+        this.paymentMethod = paymentMethod;
         this.createdAt = Instant.now();
     }
 
@@ -50,6 +54,10 @@ public class Transaction {
     public Instant getCreatedAt() { return createdAt; }
     public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public TransactionStatus getStatus() { return status; }
+    public void setStatus(TransactionStatus status) { this.status = status; }
+
+    public PaymentMethod getPaymentMethod() { return paymentMethod; }
+    public void setPaymentMethod(PaymentMethod paymentMethod) { this.paymentMethod = paymentMethod; }
+
 }

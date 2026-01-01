@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import com.example.transactions.status.TransactionStatus;
+import com.example.transactions.model.PaymentMethod;
 
 import java.net.URI;
 import java.util.List;
@@ -36,20 +38,30 @@ public class TransactionController {
 
     @PostMapping
     public ResponseEntity<Transaction> createTransaction(@RequestBody Transaction t) {
-        if (t.getStatus() == null) t.setStatus("PENDING");
+        if (t.getStatus() == null) t.setStatus(TransactionStatus.PENDING);
+        if (t.getPaymentMethod() == null) t.setPaymentMethod(PaymentMethod.CARD);
         Transaction saved = service.create(t);
         return ResponseEntity.created(URI.create("/api/transactions/"+saved.getId())).body(saved);
     }
 
     @GetMapping
     public List<Transaction> list() {
-        /////////////////////////
         return service.list();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Transaction> get(@PathVariable String id) {
         return service.get(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/passenger/{pid}")
+    public List<Transaction> listByPassenger(@PathVariable String pid) {
+        return service.listByPassenger(pid);
+    }
+
+    @GetMapping("/driver/{did}")
+    public List<Transaction> listByDriver(@PathVariable String did) {
+        return service.listByDriver(did);
     }
 
     @PostMapping("/{id}/refund")
@@ -60,5 +72,12 @@ public class TransactionController {
         } catch (IllegalArgumentException ex) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/{id}/complete")
+    public ResponseEntity<Transaction> complete(@PathVariable String id) {
+        return service.complete(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

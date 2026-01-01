@@ -1,0 +1,16 @@
+1. Calculate fare:
+curl -X POST http://localhost:8080/api/transactions/fare ^
+  -H "Content-Type: application/json" ^
+  -d "{\"distanceKm\": 5, \"durationMin\": 10, \"surge\": 1.2}"
+
+2. Create a transaction:
+curl -X POST http://localhost:8080/api/transactions ^
+  -H "Content-Type: application/json" ^
+  -d "{\"orderId\": \"ORDER123\", \"passengerId\": \"P1\", \"driverId\": \"D1\", \"amount\": 9.60}"
+
+3. List all Transactions:
+curl http://localhost:8080/api/transactions
+
+4. Get a Transaction by ID:
+curl http://localhost:8080/api/transactions/ID_HERE
+
