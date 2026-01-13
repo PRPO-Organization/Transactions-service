@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: transactions
-        image: /transactions-service:latest
+        image: prporegistry.azurecr.io/transactions-service:latest
         ports:
         - containerPort: 8080
         env:
