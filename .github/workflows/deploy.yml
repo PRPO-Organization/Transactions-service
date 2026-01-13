@@ -5,7 +5,6 @@ on:
     branches: [master, test]
 
 env:
-  ACR_LOGIN_SERVER: prporegistry.azurecr.io
   IMAGE_NAME: transactions-service
 
 jobs:
