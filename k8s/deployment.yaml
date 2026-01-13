@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: transactions
-        image: dimitartrj/transactions-service:latest
+        image: /transactions-service:16e2a3c02588d3d3d30526919fedea369fdc034f
         ports:
         - containerPort: 8080
         env:
